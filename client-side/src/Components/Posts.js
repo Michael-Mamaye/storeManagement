@@ -1,5 +1,6 @@
 import React from 'react'
-import {List, Datagrid, TextField, ReferenceField, EditButton, Edit, SimpleForm, ReferenceInput, SelectInput, TextInput, Create} from 'react-admin'
+import { useMediaQuery } from '@material-ui/core';
+import {List, SimpleList,Datagrid,TextField,ReferenceField,EditButton, Edit, SimpleForm, ReferenceInput, SelectInput, TextInput, Create} from 'react-admin'
 
 const postFilters=[
     <TextInput source="q" label="Search" alwaysOn/>,
@@ -11,17 +12,26 @@ const postFilters=[
     </ReferenceInput>,
 ];
 export function PostsList(props) {
+
+    const isSmall = useMediaQuery(theme=>theme.breakpoints.down('sm'))
   return (
     <List filters={postFilters} {...props}>
-        <Datagrid rowClick="edit">
-            
-            <TextField source="id" />
-            <ReferenceField source="userId" reference="users">
-                <TextField source="name" />
-            </ReferenceField>
-            <TextField source="title" />
-            <EditButton/>
-        </Datagrid>
+       {
+       isSmall?
+            <SimpleList
+                    primaryText={record=>record.title}
+                    secondaryText={record=>`${record.id} views`}
+                    tertiaryText={record => new Date(record.id).toLocaleDateString()}
+            />:
+            <Datagrid rowClick="edit">
+                <TextField source="id" />
+                <ReferenceField source="userId" reference="users">
+                    <TextField source="name" />
+                </ReferenceField>
+                <TextField source="title" />
+                <EditButton/>
+            </Datagrid>
+    }
     </List>
   )
 }
