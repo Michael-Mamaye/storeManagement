@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken";
 
-const config= proess.env;
+const config= process.env;
 
 const verifyToken=(req, res, next)=>{
+    
+    
     const token= req.body.token||req.query.token||req.headers["x-access-token"]
 
     if(!token)
@@ -22,4 +24,5 @@ const verifyToken=(req, res, next)=>{
     return next();
 
 }
-module.exports=verifyToken;
+
+export default verifyToken;

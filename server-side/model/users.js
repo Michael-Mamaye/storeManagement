@@ -5,11 +5,7 @@ const userSchema=new mongoose.Schema({
         type:Number,
         required:true
     },
-    firstName:{
-        type:String,
-        required:true
-    },
-    lastName:{
+    fullName:{
         type:String,
         required:true
     },
@@ -31,6 +27,10 @@ const userSchema=new mongoose.Schema({
     email:{
         type:String,
         required:[true,"email is required"]
+    },
+    role:{
+        type:String,
+        required:[true,"role is required"]
     },
     token:{
         type:String
